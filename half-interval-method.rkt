@@ -1,0 +1,27 @@
+#lang racket
+(define (average x y)
+  (/ (+ x y) 2))
+(define (test x)
+  (let ((y (+ x 1))
+        (z (+ x 2)))
+    (+ x y z)))
+(define (positive? x)
+  (> x 0))
+(define (negative? x)
+  (< x 0))
+(define (close-enough x y)
+  (< (abs (- x y)) 0.0001))
+(define (minus x)
+  (- x 10))
+(define (search-zero func neg-point pos-point)
+  (let ( (mid-point (average neg-point pos-point)))
+    (if (close-enough neg-point pos-point)
+        mid-point
+        (let ( (mid-value (func mid-point)))
+          (cond ((positive? mid-value)
+                 (search-zero func neg-point mid-point))
+                ((negative? mid-value)
+                 (search-zero func mid-point pos-point))
+                ( else mid-point))))))
+  
+    
